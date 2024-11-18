@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { RGBELoader } from 'three/examples/jsm/Addons.js';
+import gsap from 'gsap';
 import "./style.css"
 
 const modelLoader = new GLTFLoader();
@@ -196,11 +197,29 @@ modelLoader.load("models/Ghost/scene.gltf",
     objects.push(deimos);
   })
 
-//animation
-let time = Date.now();
-function animate() {
-  requestAnimationFrame(animate);
+//spaceship
+const spaceshipOrbit = new THREE.Object3D();
+scene.add(spaceshipOrbit);
 
+let spaceship = null;
+modelLoader.load("models/Spaceship/scene.gltf",
+  function (gltf) {
+    spaceship = gltf.scene;
+    spaceship.scale.set(0.1, 0.1, 0.1);
+    spaceship.rotateZ(-90);
+    spaceshipOrbit.add(spaceship);
+  }
+)
+
+//animation
+//gsap
+gsap.fromTo(spaceshipOrbit.position, { x: -50 }, { rotationZ: -180, duration: 5, x: 25, repeat: -1, yoyo: true });
+gsap.to(mercuryOrbit.position, { duration: 1, rotation: 90, x: 10, repeat: -1, yoyo: true });
+gsap.to(camera.position, { duration: 30, y: 10, repeat: -1, yoyo: true });
+
+//function
+let time = Date.now();
+const animate = () => {
   const currentTime = Date.now();
   const deltaTime = currentTime - time;
 
@@ -211,5 +230,7 @@ function animate() {
   })
 
   renderer.render(scene, camera);
+
+  window.requestAnimationFrame(animate);
 }
 animate();

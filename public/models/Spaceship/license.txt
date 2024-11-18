@@ -1,0 +1,11 @@
+Model Information:
+* title:	Spaceship
+* source:	https://sketchfab.com/3d-models/spaceship-0a073d0ab9a64b408056e82f7628b188
+* author:	motaman (https://sketchfab.com/motaman)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Spaceship" (https://sketchfab.com/3d-models/spaceship-0a073d0ab9a64b408056e82f7628b188) by motaman (https://sketchfab.com/motaman) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

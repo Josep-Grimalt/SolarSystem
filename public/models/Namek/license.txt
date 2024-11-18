@@ -1,0 +1,11 @@
+Model Information:
+* title:	Namek Spaceship
+* source:	https://sketchfab.com/3d-models/namek-spaceship-dfe16ac71a9640d198b522993a34d6cb
+* author:	Joca (https://sketchfab.com/Joca23)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Namek Spaceship" (https://sketchfab.com/3d-models/namek-spaceship-dfe16ac71a9640d198b522993a34d6cb) by Joca (https://sketchfab.com/Joca23) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
