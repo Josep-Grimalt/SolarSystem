@@ -14,6 +14,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const textureLoader = new THREE.TextureLoader();
 
 //background
@@ -43,6 +44,15 @@ camera.lookAt(0, 0, 0);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
+//responsive
+window.addEventListener("resize",
+  () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+  }
+)
+
 const objects = [];
 
 const radius = 1;
@@ -50,23 +60,49 @@ const widthSegments = 25;
 const heightSegments = 25;
 const sphereGeo = new THREE.SphereGeometry(radius, widthSegments, heightSegments);
 
-//llum
-const light = new THREE.PointLight(0xFFFFFF, 3000);
+//llum del sol
+const light = new THREE.PointLight(0xFFFFFF, 500);
 light.castShadow = true;
 scene.add(light);
+
+//llum per fer ombres sobre el pla
+const shadowPlaneLight = new THREE.SpotLight(0xbfbfbf, 5000);
+shadowPlaneLight.position.set(0, 50, 0);
+shadowPlaneLight.lookAt(0, 0, 0);
+shadowPlaneLight.castShadow = true;
+shadowPlaneLight.shadow.mapSize.width = 1024;
+shadowPlaneLight.shadow.mapSize.height = 1024;
+scene.add(shadowPlaneLight);
+scene.add(shadowPlaneLight.target);
 
 //solarSystem
 const solarSystem = new THREE.Object3D();
 scene.add(solarSystem);
 objects.push(solarSystem);
 
+//plane
+const planeGeo = new THREE.PlaneGeometry(100, 100);
+const planeMaterial = new THREE.MeshStandardMaterial({
+  color: 0xcfcfcf
+})
+const plane = new THREE.Mesh(planeGeo, planeMaterial);
+plane.position.y = -10;
+plane.rotation.x = -Math.PI / 2;
+plane.receiveShadow = true;
+scene.add(plane);
+
 //sun
 let sun = null;
-modelLoader.load("models/Pumpkin/scene.gltf",
+modelLoader.load("models/jack_o_lantern/scene.gltf",
   function (gltf) {
     sun = gltf.scene;
-    sun.scale.set(.04, .04, .04);
+    sun.scale.set(10, 10, 10);
     sun.position.set(0, 0, 0);
+    sun.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+      }
+    })
     solarSystem.add(sun);
     objects.push(sun);
   })
@@ -79,11 +115,17 @@ solarSystem.add(mercuryOrbit);
 objects.push(mercuryOrbit);
 
 let mercury = null;
-modelLoader.load("models/Skull/scene.gltf",
+modelLoader.load("models/3dst20_-_halloween_skull/scene.gltf",
   function (gltf) {
     mercury = gltf.scene;
     mercury.scale.set(.5, .5, .5);
     mercury.position.set(0, 0, 0);
+    mercury.traverse((child) => {
+      if (child.isMesh) {
+        child.receiveShadow = true;
+        child.castShadow = true;
+      }
+    })
     mercuryOrbit.add(mercury);
     objects.push(mercury);
   })
@@ -103,7 +145,7 @@ const venusMaterial = new THREE.MeshPhongMaterial({
   emissive: 0x9f6b3b
 });
 const venusMesh = new THREE.Mesh(sphereGeo, venusMaterial);
-venusMesh.scale.set(.94, .94, .94);
+venusMesh.scale.set(0.94, 0.94, 0.94);
 venusMesh.receiveShadow = true;
 venusMesh.castShadow = true;
 venusOrbit.add(venusMesh);
@@ -135,7 +177,7 @@ const moonMaterial = new THREE.MeshPhongMaterial({
   emissive: 0x222222
 });
 const moonMesh = new THREE.Mesh(sphereGeo, moonMaterial);
-moonMesh.scale.set(.2724, .2724, .2724);
+moonMesh.scale.set(0.2724, 0.2724, 0.2724);
 moonMesh.castShadow = true;
 moonMesh.receiveShadow = true;
 moonOrbit.add(moonMesh);
@@ -145,7 +187,6 @@ objects.push(moonMesh);
 const marsOrbit = new THREE.Object3D();
 marsOrbit.position.x = 25;
 marsOrbit.position.z = 25;
-marsOrbit.position.normalize;
 solarSystem.add(marsOrbit);
 objects.push(marsOrbit);
 
@@ -157,7 +198,7 @@ const marsMaterial = new THREE.MeshPhongMaterial({
   emissive: 0x663926
 });
 const marsMesh = new THREE.Mesh(sphereGeo, marsMaterial);
-marsMesh.scale.set(.532, .532, .532);
+marsMesh.scale.set(0.532, 0.532, 0.532);
 marsMesh.receiveShadow = true;
 marsMesh.castShadow = true;
 marsOrbit.add(marsMesh);
@@ -167,15 +208,20 @@ objects.push(marsMesh);
 const phobosOrbit = new THREE.Object3D();
 phobosOrbit.position.x = 1;
 phobosOrbit.position.z = -1;
-phobosOrbit.position.normalize;
 marsOrbit.add(phobosOrbit);
 
 let phobos = null;
-modelLoader.load("models/Ghost/scene.gltf",
+modelLoader.load("models/gorilla_tag_halloween_bat/scene.gltf",
   function (gltf) {
     phobos = gltf.scene;
-    phobos.scale.set(.0015, .0015, .0015);
+    phobos.scale.set(10, 10, 10);
     phobos.position.set(0, 0, 0);
+    phobos.traverse((child) => {
+      if (child.isMesh) {
+        child.receiveShadow = true;
+        child.castShadow = true;
+      }
+    })
     phobosOrbit.add(phobos);
     objects.push(phobos);
   })
@@ -184,15 +230,19 @@ modelLoader.load("models/Ghost/scene.gltf",
 const deimosOrbit = new THREE.Object3D();
 deimosOrbit.position.x = 3;
 deimosOrbit.position.z = 1;
-deimosOrbit.position.normalize;
 marsOrbit.add(deimosOrbit);
 
 let deimos = null;
-modelLoader.load("models/Ghost/scene.gltf",
+modelLoader.load("models/killer_klown/scene.gltf",
   function (gltf) {
     deimos = gltf.scene;
-    deimos.scale.set(.001, .001, .001);
     deimos.position.set(0, 0, 0);
+    deimos.traverse((child) => {
+      if (child.isMesh) {
+        child.receiveShadow = true;
+        child.castShadow = true;
+      }
+    })
     deimosOrbit.add(deimos);
     objects.push(deimos);
   })
@@ -206,15 +256,22 @@ modelLoader.load("models/Spaceship/scene.gltf",
   function (gltf) {
     spaceship = gltf.scene;
     spaceship.scale.set(0.1, 0.1, 0.1);
-    spaceship.rotateZ(-90);
+    spaceship.rotation.set(0, 0, Math.PI / 2);
+    spaceship.traverse((child) => {
+      if (child.isMesh) {
+        child.receiveShadow = true;
+        child.castShadow = true;
+      }
+    })
     spaceshipOrbit.add(spaceship);
   }
 )
 
 //animation
 //gsap
-gsap.fromTo(spaceshipOrbit.position, { x: -50 }, { rotationZ: -180, duration: 5, x: 25, repeat: -1, yoyo: true });
-gsap.to(mercuryOrbit.position, { duration: 1, rotation: 90, x: 10, repeat: -1, yoyo: true });
+gsap.fromTo(spaceshipOrbit.position, { x: -50 }, { duration: 5, x: 25, repeat: -1, yoyo: true });
+gsap.to(spaceshipOrbit.rotation, { y: spaceshipOrbit.rotation.y + Math.PI, duration: 5, repeat: -1, yoyo: true });
+gsap.to(mercuryOrbit.position, { duration: 1, x: 10, repeat: -1, yoyo: true });
 gsap.to(camera.position, { duration: 30, y: 10, repeat: -1, yoyo: true });
 
 //function
@@ -225,9 +282,10 @@ const animate = () => {
 
   time = currentTime;
 
-  objects.forEach((obj) => {
-    obj.rotation.y += 0.001 * deltaTime;
-  })
+  let i = 0;
+  for (i; i < objects.length; i++) {
+    objects[i].rotation.y += 0.0001 * deltaTime;
+  }
 
   renderer.render(scene, camera);
 

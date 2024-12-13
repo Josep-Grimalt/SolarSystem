@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gorilla Tag Halloween Bat
+* source:	https://sketchfab.com/3d-models/gorilla-tag-halloween-bat-5aba645e7d83417c8a9c10c14b32d6ad
+* author:	KPMisParrot (https://sketchfab.com/KPMisParrot)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gorilla Tag Halloween Bat" (https://sketchfab.com/3d-models/gorilla-tag-halloween-bat-5aba645e7d83417c8a9c10c14b32d6ad) by KPMisParrot (https://sketchfab.com/KPMisParrot) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
