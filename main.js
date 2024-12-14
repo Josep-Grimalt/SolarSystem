@@ -98,11 +98,6 @@ modelLoader.load("models/jack_o_lantern/scene.gltf",
     sun = gltf.scene;
     sun.scale.set(10, 10, 10);
     sun.position.set(0, 0, 0);
-    sun.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-      }
-    })
     solarSystem.add(sun);
     objects.push(sun);
   })
