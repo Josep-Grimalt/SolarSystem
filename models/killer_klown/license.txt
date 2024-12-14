@@ -1,0 +1,11 @@
+Model Information:
+* title:	Killer Klown
+* source:	https://sketchfab.com/3d-models/killer-klown-80311104f2234eb8952e61034d829039
+* author:	Kenn090 (https://sketchfab.com/kenn090)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Killer Klown" (https://sketchfab.com/3d-models/killer-klown-80311104f2234eb8952e61034d829039) by Kenn090 (https://sketchfab.com/kenn090) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
