@@ -250,6 +250,7 @@ let spaceship = null;
 modelLoader.load("models/Spaceship/scene.gltf",
   function (gltf) {
     spaceship = gltf.scene;
+    spaceship.position.set(0, -5, 5);
     spaceship.scale.set(0.1, 0.1, 0.1);
     spaceship.rotation.set(0, 0, Math.PI / 2);
     spaceship.traverse((child) => {
