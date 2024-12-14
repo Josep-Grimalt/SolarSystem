@@ -264,7 +264,7 @@ modelLoader.load("models/Spaceship/scene.gltf",
 
 //animation
 //gsap
-gsap.fromTo(spaceshipOrbit.position, { x: -50 }, { duration: 5, x: 25, repeat: -1, yoyo: true });
+gsap.fromTo(spaceshipOrbit.position, { x: -25 }, { duration: 5, x: 25, repeat: -1, yoyo: true });
 gsap.to(spaceshipOrbit.rotation, { y: spaceshipOrbit.rotation.y + Math.PI, duration: 5, repeat: -1, yoyo: true });
 gsap.to(mercuryOrbit.position, { duration: 1, x: 10, repeat: -1, yoyo: true });
 gsap.to(camera.position, { duration: 30, y: 10, repeat: -1, yoyo: true });
